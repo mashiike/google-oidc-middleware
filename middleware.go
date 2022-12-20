@@ -60,8 +60,8 @@ func New(cfg *Config) (func(next http.Handler) http.Handler, error) {
 	if cfg.LoginPath == "" {
 		cfg.LoginPath = "/oidc/google/login"
 	}
-	if cfg.LoginPath == "" {
-		cfg.LoginPath = "/oidc/google/idpresponse"
+	if cfg.CallbackPath == "" {
+		cfg.CallbackPath = "/oidc/google/idpresponse"
 	}
 	if cfg.Scopes == nil {
 		cfg.Scopes = []string{oidc.ScopeOpenID}
@@ -116,6 +116,7 @@ func (h *handler) handleLogin(w http.ResponseWriter, r *http.Request, session *S
 		redirectTo := h.cfg.BaseURL.JoinPath(returnPath)
 		session.RedirectTo = redirectTo.String()
 	}
+	h.cfg.Println("[debug] redirect to ", session.RedirectTo)
 
 	state := randstr.Hex(16)
 	session.S = state
@@ -241,6 +242,7 @@ func (h *handler) checkIDToken(ctx context.Context, provider *oidc.Provider, raw
 
 func (h *handler) newOIDCConfig(ctx context.Context) (*oidc.Provider, *oauth2.Config, error) {
 	u := h.cfg.BaseURL.JoinPath(h.cfg.CallbackPath)
+	h.cfg.Println("[debug] RedirectURL = ", u.String())
 	provider, err := oidc.NewProvider(ctx, "https://accounts.google.com")
 	if err != nil {
 		return nil, nil, err
