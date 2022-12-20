@@ -28,6 +28,19 @@ type Config struct {
 	Logger
 }
 
+func (cfg *Config) WithBaseURL(rawURL string) *Config {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		if cfg.Logger != nil {
+			cfg.Println("[error] base url parse:", err)
+		} else {
+			log.Println("[error] base url parse:", err)
+		}
+	}
+	cfg.BaseURL = u
+	return cfg
+}
+
 type Logger interface {
 	Println(v ...any)
 }
