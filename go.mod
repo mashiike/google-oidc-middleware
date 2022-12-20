@@ -1,6 +1,6 @@
 module github.com/mashiike/google-oidc-middleware
 
-go 1.18
+go 1.19
 
 require (
 	github.com/coreos/go-oidc v2.2.1+incompatible

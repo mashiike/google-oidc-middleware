@@ -8,6 +8,10 @@
 
 Google OIDC Middleware for golang
 
+
+## Requirements
+  * Go 1.19 or higher. support the 3 latest versions of Go.
+
 ## Usage 
 
 sample go code
