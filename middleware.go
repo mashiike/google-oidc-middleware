@@ -52,7 +52,7 @@ type handler struct {
 
 func New(cfg *Config) (func(next http.Handler) http.Handler, error) {
 	if cfg.Logger == nil {
-		cfg.Logger = log.New(log.Writer(), "google-oidc", log.Flags())
+		cfg.Logger = log.New(log.Writer(), "google-oidc ", log.Flags())
 	}
 	if cfg.CookieName == "" {
 		cfg.CookieName = "google-oidc"
@@ -100,6 +100,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if path.Join(h.cfg.BaseURL.Path, h.cfg.CallbackPath) == r.URL.Path {
 		h.handleCallback(w, r, &session)
+		return
 	}
 	h.handleDefault(w, r, &session)
 }
