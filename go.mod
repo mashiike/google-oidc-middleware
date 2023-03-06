@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/samber/lo v1.37.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	github.com/thanhpk/randstr v1.0.4
 	golang.org/x/net v0.4.0
 	golang.org/x/oauth2 v0.3.0
